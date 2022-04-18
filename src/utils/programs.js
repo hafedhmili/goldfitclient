@@ -8,7 +8,9 @@ const program_header = (enrollmentCode,callback) => {
     }
 
     // build the URL to invoke the service
-    const URL = process.env.SERVER_BASE_URL+'programs?ec=' + enrollmentCode
+    const serverBaseUrl = process.env.REACT_APP_SERVER_BASE_URL? process.env.REACT_APP_SERVER_BASE_URL:'http://localhost:3000/' 
+    console.log('server base URL is: ', serverBaseUrl)
+    const URL = serverBaseUrl+'programs?ec=' + enrollmentCode
 
     // make the call
     axios.get(URL)
@@ -28,7 +30,9 @@ const program_details = (program_name,callback) => {
     }
 
     // build the URL to invoke the service
-    const URL = process.env.SERVER_BASE_URL+'programs/program?pgm_name=' + program_name
+    const serverBaseUrl = process.env.REACT_APP_SERVER_BASE_URL? process.env.REACT_APP_SERVER_BASE_URL:'http://localhost:3000/' 
+    console.log('server base URL is: ', serverBaseUrl)
+    const URL = serverBaseUrl+'programs/program?pgm_name=' + program_name
 
     // make the call
     axios.get(URL)
