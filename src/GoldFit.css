@@ -1,0 +1,37 @@
+.GoldFit {
+  text-align: center;
+}
+
+.GoldFit-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .GoldFit-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.GoldFit-header {
+  background-color: hsl(220, 0%, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(6px + 2vmin);
+  color: #100f0f;
+}
+
+.GoldFit-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
