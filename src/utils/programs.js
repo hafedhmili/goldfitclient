@@ -8,7 +8,7 @@ const program_header = (enrollmentCode,callback) => {
     }
 
     // build the URL to invoke the service
-    const URL = 'http://localhost:3000/programs?ec=' + enrollmentCode
+    const URL = process.env.SERVER_BASE_URL+'programs?ec=' + enrollmentCode
 
     // make the call
     axios.get(URL)
@@ -28,7 +28,7 @@ const program_details = (program_name,callback) => {
     }
 
     // build the URL to invoke the service
-    const URL = 'http://localhost:3000/programs/program?pgm_name=' + program_name
+    const URL = process.env.SERVER_BASE_URL+'programs/program?pgm_name=' + program_name
 
     // make the call
     axios.get(URL)
