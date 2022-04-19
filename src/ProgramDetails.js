@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Accordion from 'react-bootstrap/Accordion';
 // import Card from 'react-bootstrap/Card';
 // import Button from 'react-bootstrap/Button';
-import AccordionItem from 'react-bootstrap/esm/AccordionItem';
+// import AccordionItem from 'react-bootstrap/esm/AccordionItem';
 import ReactPlayer from 'react-player';  
 
 

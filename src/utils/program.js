@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
 class Exercise {
@@ -88,10 +88,9 @@ class Program {
         //        stringProgSequences = stringProgSequences+ element.key + '->' + element.value +','
         //    })
         //    stringProgSequences = stringProgSequences.replace(/.$/,'}')
-        var globalString = '{' + '"name" : "' + this.name + '";' +
-            '"description" : "' + this.description + '";' +
-            '"duration" : "' + this.duration + '";' +
-            '"mapExerciseSeries" : "' + stringProgSequences + '}';
+        var globalString = '{"name" : "' + this.name + '"; "description" : "' + this.description + 
+            '"; "duration" : "' + this.duration + 
+            '"; "mapExerciseSeries" : "' + stringProgSequences + '}';
         return globalString;
     }
 }
