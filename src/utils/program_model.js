@@ -1,6 +1,7 @@
 // "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
+//const _Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
+// export { _Program as Program };
 class Exercise {
     constructor(n, d, nR, ur) {
         this.name = n;
@@ -9,7 +10,8 @@ class Exercise {
         this.url = ur;
     }
 }
-exports.Exercise = Exercise;
+const _Exercise = Exercise;
+export { _Exercise as Exercise };
 ;
 class ExerciseSeries {
     constructor(n, d) {
@@ -38,7 +40,8 @@ class ExerciseSeries {
         return this.exercices.size;
     }
 }
-exports.ExerciseSeries = ExerciseSeries;
+const _ExerciseSeries = ExerciseSeries;
+export { _ExerciseSeries as ExerciseSeries };
 ;
 class Interval {
     constructor(mi, ma) {
@@ -46,7 +49,8 @@ class Interval {
         this.max = ma;
     }
 }
-exports.Interval = Interval;
+const _Interval = Interval;
+export { _Interval as Interval };
 ;
 class Program {
     constructor(n, des, d) {
@@ -94,5 +98,6 @@ class Program {
         return globalString;
     }
 }
-exports.Program = Program;
+const _Program = Program;
+export { _Program as Program };
 ;
