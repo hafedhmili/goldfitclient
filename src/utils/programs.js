@@ -1,8 +1,8 @@
 import axios from 'axios'
-import {Exercise} from './program'
-import {ExerciseSeries} from './program'
-import {Interval} from './program'
-import {Program} from './program'
+import {Exercise} from './program_model'
+import {ExerciseSeries} from './program_model'
+import {Interval} from './program_model'
+import {Program} from './program_model'
 
 const program_header = (enrollmentCode,callback) => {
     // if enrollment code is empty, it is an error
