@@ -1,6 +1,6 @@
-//"use strict";
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//exports.ProgramEnrollment = exports.ProgramDayRecord = exports.SatisfactionLevel = exports.PainLevel = exports.SelfEfficacy = exports.DifficultyLevel = exports.ExerciseRecord = exports.Patient = exports.Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
+exports.ProgramEnrollment = exports.ProgramDayRecord = exports.SatisfactionLevel = exports.PainLevel = exports.SelfEfficacy = exports.DifficultyLevel = exports.ExerciseRecord = exports.Patient = exports.Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
 class Exercise {
     constructor(n, d, nR, ur) {
         this.name = n;
@@ -8,8 +8,9 @@ class Exercise {
         this.numberRepetitions = nR;
         this.url = ur;
     }
-};
-
+}
+exports.Exercise = Exercise;
+;
 class ExerciseSeries {
     constructor(n, d) {
         this.name = n;
@@ -37,7 +38,7 @@ class ExerciseSeries {
         return this.exercices.size;
     }
 }
-
+exports.ExerciseSeries = ExerciseSeries;
 ;
 class Interval {
     constructor(mi, ma) {
@@ -45,7 +46,7 @@ class Interval {
         this.max = ma;
     }
 }
-
+exports.Interval = Interval;
 ;
 class Program {
     constructor(n, des, d) {
@@ -94,7 +95,8 @@ class Program {
         return globalString;
     }
 }
-
+exports.Program = Program;
+;
 class Patient {
     constructor(fName, lName, id) {
         this.firstName = fName;
@@ -102,7 +104,7 @@ class Patient {
         this.patientId = id;
     }
 }
-
+exports.Patient = Patient;
 class ExerciseRecord {
     constructor(ex, numSeries, numRepetitions) {
         this.exercise = ex;
@@ -110,7 +112,7 @@ class ExerciseRecord {
         this.numberRepetitions = numRepetitions;
     }
 }
-
+exports.ExerciseRecord = ExerciseRecord;
 var DifficultyLevel;
 (function (DifficultyLevel) {
     DifficultyLevel["VeryVeryEasy"] = "Very Very Easy";
@@ -145,7 +147,6 @@ var SatisfactionLevel;
     SatisfactionLevel["Insatisfied"] = "Insatisfied";
     SatisfactionLevel["VeryInsatisfied"] = "Very Insatisfied";
 })(SatisfactionLevel = exports.SatisfactionLevel || (exports.SatisfactionLevel = {}));
-
 class ProgramDayRecord {
     constructor(d, exSeries) {
         this.day = d;
@@ -170,7 +171,7 @@ class ProgramDayRecord {
         }
     }
 }
-
+exports.ProgramDayRecord = ProgramDayRecord;
 class ProgramEnrollment {
     constructor(p, prog, code, enrDate, startDate) {
         this.patient = p;
@@ -227,35 +228,4 @@ class ProgramEnrollment {
         return this.dayRecords.get(day);
     }
 }
-
-// exports.Exercise = Exercise;
-const _Exercise = Exercise;
-export { _Exercise as Exercise };
-
-// exports.Interval = Interval;
-const _Interval = Interval;
-export {_Interval as Interval};
-
-//exports.ExerciseSeries = ExerciseSeries;
-const _ExerciseSeries = ExerciseSeries;
-export { _ExerciseSeries as ExerciseSeries };
-
-// exports.Program = Program;
-const _Program = Program;
-export {_Program as Program};
-
-// exports.Patient = Patient;
-const _Patient = Patient;
-export {_Patient as Patient};
-
-// exports.ExerciseRecord = ExerciseRecord;
-const _ExerciseRecord = ExerciseRecord;
-export {_ExerciseRecord as ExerciseRecord};
-
-// exports.ProgramDayRecord = ProgramDayRecord;
-const _ProgramDayRecord = ProgramDayRecord;
-export {_ProgramDayRecord as ProgramDayRecord};
-
-// exports.ProgramEnrollment = ProgramEnrollment;
-const _ProgramEnrollment = ProgramEnrollment;
-export { _ProgramEnrollment as ProgramEnrollment };
+exports.ProgramEnrollment = ProgramEnrollment;
