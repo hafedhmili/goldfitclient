@@ -1,7 +1,6 @@
-// "use strict";
+//"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//const _Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
-// export { _Program as Program };
+//exports.ProgramEnrollment = exports.ProgramDayRecord = exports.SatisfactionLevel = exports.PainLevel = exports.SelfEfficacy = exports.DifficultyLevel = exports.ExerciseRecord = exports.Patient = exports.Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
 class Exercise {
     constructor(n, d, nR, ur) {
         this.name = n;
@@ -9,10 +8,8 @@ class Exercise {
         this.numberRepetitions = nR;
         this.url = ur;
     }
-}
-const _Exercise = Exercise;
-export { _Exercise as Exercise };
-;
+};
+
 class ExerciseSeries {
     constructor(n, d) {
         this.name = n;
@@ -40,8 +37,7 @@ class ExerciseSeries {
         return this.exercices.size;
     }
 }
-const _ExerciseSeries = ExerciseSeries;
-export { _ExerciseSeries as ExerciseSeries };
+
 ;
 class Interval {
     constructor(mi, ma) {
@@ -49,8 +45,7 @@ class Interval {
         this.max = ma;
     }
 }
-const _Interval = Interval;
-export { _Interval as Interval };
+
 ;
 class Program {
     constructor(n, des, d) {
@@ -92,12 +87,175 @@ class Program {
         //        stringProgSequences = stringProgSequences+ element.key + '->' + element.value +','
         //    })
         //    stringProgSequences = stringProgSequences.replace(/.$/,'}')
-        var globalString = '{"name" : "' + this.name + '"; "description" : "' + this.description + 
-            '"; "duration" : "' + this.duration + 
-            '"; "mapExerciseSeries" : "' + stringProgSequences + '}';
+        var globalString = '{' + '"name" : "' + this.name + '";' +
+            '"description" : "' + this.description + '";' +
+            '"duration" : "' + this.duration + '";' +
+            '"mapExerciseSeries" : "' + stringProgSequences + '}';
         return globalString;
     }
 }
+
+class Patient {
+    constructor(fName, lName, id) {
+        this.firstName = fName;
+        this.lastName = lName;
+        this.patientId = id;
+    }
+}
+
+class ExerciseRecord {
+    constructor(ex, numSeries, numRepetitions) {
+        this.exercise = ex;
+        this.numberSeries = numSeries;
+        this.numberRepetitions = numRepetitions;
+    }
+}
+
+var DifficultyLevel;
+(function (DifficultyLevel) {
+    DifficultyLevel["VeryVeryEasy"] = "Very Very Easy";
+    DifficultyLevel["VeryEasy"] = "Very Easy";
+    DifficultyLevel["Easy"] = "Easy";
+    DifficultyLevel["RelativelyEasy"] = "Relatively Easy";
+    DifficultyLevel["Average"] = "Average";
+    DifficultyLevel["RelativelyDifficult"] = "Relatively Difficult";
+    DifficultyLevel["Difficult"] = "Difficult";
+    DifficultyLevel["VeryDifficult"] = "Very Difficult";
+    DifficultyLevel["VeryVeryDifficult"] = "Very Very Difficult";
+    DifficultyLevel["IncrediblyDifficult"] = "Incredibly Difficult";
+})(DifficultyLevel = exports.DifficultyLevel || (exports.DifficultyLevel = {}));
+var SelfEfficacy;
+(function (SelfEfficacy) {
+    SelfEfficacy["HighlyConfident"] = "Highly Confident";
+    SelfEfficacy["Confident"] = "Confident";
+    SelfEfficacy["LittleConfident"] = "Little Confident";
+    SelfEfficacy["NotConfident"] = "Not Confident";
+})(SelfEfficacy = exports.SelfEfficacy || (exports.SelfEfficacy = {}));
+var PainLevel;
+(function (PainLevel) {
+    PainLevel["NoPain"] = "No Pain";
+    PainLevel["LittlePain"] = "Little Pain";
+    PainLevel["ModeratePain"] = "Moderate Pain";
+    PainLevel["SeverePain"] = "Severe Pain";
+})(PainLevel = exports.PainLevel || (exports.PainLevel = {}));
+var SatisfactionLevel;
+(function (SatisfactionLevel) {
+    SatisfactionLevel["VerySatisfied"] = "Very Satisfied";
+    SatisfactionLevel["Satisfied"] = "Satisfied";
+    SatisfactionLevel["Insatisfied"] = "Insatisfied";
+    SatisfactionLevel["VeryInsatisfied"] = "Very Insatisfied";
+})(SatisfactionLevel = exports.SatisfactionLevel || (exports.SatisfactionLevel = {}));
+
+class ProgramDayRecord {
+    constructor(d, exSeries) {
+        this.day = d;
+        this.exerciseSeries = exSeries;
+        this.exerciceRecords = new Map();
+        this.difficultyLevel = DifficultyLevel.Average;
+        this.selfEfficacy = SelfEfficacy.NotConfident;
+        this.painLevel = PainLevel.NoPain;
+        this.satisfactionLevel = SatisfactionLevel.Satisfied;
+        if (!exSeries) {
+            console.log('Exercise series is undefined. Cannot define program day record. The list of exercise records is empty');
+            return;
+        }
+        var exRecord;
+        const numExs = exSeries.getNumberOfExercices();
+        for (var idx = 1; idx <= numExs; idx++) {
+            const exercise = exSeries.getExerciseAtPosition(idx);
+            if (exercise) {
+                exRecord = new ExerciseRecord(exercise, 0, 0);
+                this.exerciceRecords.set(exercise, exRecord);
+            }
+        }
+    }
+}
+
+class ProgramEnrollment {
+    constructor(p, prog, code, enrDate, startDate) {
+        this.patient = p;
+        this.program = prog;
+        this.enrollmentCode = code;
+        this.enrollmentDate = enrDate;
+        this.startDate = startDate;
+        this.dayRecords = new Map();
+    }
+    /**
+     * A utility function that computes the number of days elapsed between
+     * two dates given as an argument
+     * @param d1
+     * @param d2
+     * @returns
+     */
+    getNumberOfDaysBetween(d1, d2) {
+        const days1 = Math.round(d1.getTime() / (1000 * 3600 * 24));
+        const days2 = Math.round(d2.getTime() / (1000 * 3600 * 24));
+        return days2 - days1;
+    }
+    /**
+     * returns the exercice series that corresponds to a particular date. This
+     * depends on: 1) the (structure of the) program, and 2) the start date of
+     * the program.
+     * @param day
+     * @returns
+     */
+    getExerciseSeriesForDay(day) {
+        const dayOfTheProgram = this.getNumberOfDaysBetween(this.startDate, day) + 1;
+        return this.program.getExerciseSeriesForDay(dayOfTheProgram);
+    }
+    /**
+     * This function is used to initialize a program day record for <code>day</code>
+     * based on date day, on program start date, and on program itself.
+     * Users can then edit values for series and repetitions for the exercises in the
+     * series of the day.
+     * @param day
+     * @returns
+     */
+    initializeDayRecordForDay(day) {
+        const exerciseSeries = this.getExerciseSeriesForDay(day);
+        if (exerciseSeries) {
+            const progDayRecord = new ProgramDayRecord(day, exerciseSeries);
+            this.dayRecords.set(day, progDayRecord);
+            return progDayRecord;
+        }
+        return null;
+    }
+    /**
+     * returns the day record for a specific date
+     */
+    getDayRecordForDay(day) {
+        return this.dayRecords.get(day);
+    }
+}
+
+// exports.Exercise = Exercise;
+const _Exercise = Exercise;
+export { _Exercise as Exercise };
+
+// exports.Interval = Interval;
+const _Interval = Interval;
+export {_Interval as Interval};
+
+//exports.ExerciseSeries = ExerciseSeries;
+const _ExerciseSeries = ExerciseSeries;
+export { _ExerciseSeries as ExerciseSeries };
+
+// exports.Program = Program;
 const _Program = Program;
-export { _Program as Program };
-;
+export {_Program as Program};
+
+// exports.Patient = Patient;
+const _Patient = Patient;
+export {_Patient as Patient};
+
+// exports.ExerciseRecord = ExerciseRecord;
+const _ExerciseRecord = ExerciseRecord;
+export {_ExerciseRecord as ExerciseRecord};
+
+// exports.ProgramDayRecord = ProgramDayRecord;
+const _ProgramDayRecord = ProgramDayRecord;
+export {_ProgramDayRecord as ProgramDayRecord};
+
+// exports.ProgramEnrollment = ProgramEnrollment;
+const _ProgramEnrollment = ProgramEnrollment;
+export { _ProgramEnrollment as ProgramEnrollment };
