@@ -10,35 +10,43 @@ class ProgramSummary extends React.Component {
         constructor(props) {
             super(props);
             console.log('Inside constructor of ProgramSummary. Props are:' + props)
-            const pgm_header = JSON.parse(this.props.enrollment_record)
+            const pgm_enrollment = this.props.program_enrollment
 //            const pgm_header = this.props.enrollment_record
-            console.log('Inside constructor of ProgramSummary. pgm_header is:' + pgm_header)
+            console.log('Inside constructor of ProgramSummary. pgm_enrollment is:', pgm_enrollment)
             this.state = {
-                firstName : pgm_header.patientfirstname,
-                lastName : pgm_header.patientlastname,
-                programName : pgm_header.programname,
-                programDuration : pgm_header.programduration,
+                programEnrollment : pgm_enrollment
             }
         
             // button showProgramDetails
             this.showProgramDetails = this.showProgramDetails.bind(this);
+            this.enterDaySession = this.enterDaySession.bind(this);
           }
         
         showProgramDetails() {
  
-            Utils.program_details(this.state.programName,(res) => {
-                const pg1 = Utils.build_program(res)
+            Utils.program_details(this.state.programEnrollment.program.name,(res) => {
+                const prog = Utils.build_program(res)
+                // update the program component of the programEnrollment state variable with
+                // the newly retrieved/completed priogram
+                var pgmEnr = this.state.programEnrollment
+                pgmEnr.program = prog
                 //const pg2 = TestDataFunctions.createSomeData()[1]
-                console.log('pg1 is: ', pg1)
+                // now, update the state
+                this.setState({programEnrollment: pgmEnr})
+                console.log('Retrieved program is: ', prog)
                 ReactDOM.render(
                     <React.StrictMode>
-                        <ProgramDetails program={pg1} />
+                        <ProgramDetails programEnrollment={pgmEnr} />
                     </React.StrictMode>, document.getElementById('root')
                 );
           });
         }
 
         enterDaySession() {
+            const today = Date.now()
+            if (this.state.programEnrollment.program){
+                console.log('the program is defined. It is: ',this.programEnrollment.program)
+            }
 
         }
 
@@ -56,12 +64,12 @@ class ProgramSummary extends React.Component {
                 <div align="center">
                     <div align="center">
                         <img alt="CRIUGM" src={logo}/><br></br>                        
-                        <label className='GoldFit-header'>Welcome {this.state.firstName}!</label>
-                        <label className='GoldFit-header'>{this.state.programName} Program ({this.state.programDuration} days)</label>
+                        <label className='GoldFit-header'>Welcome {this.state.programEnrollment.patient.firstName}!</label>
+                        <label className='GoldFit-header'>{this.state.programEnrollment.program.name} Program ({this.state.programEnrollment.program.duration} days)</label>
                     </div>
 
                     <button className="square" onClick={this.showProgramDetails}>
-                        {this.state.programName} details ...
+                        {this.state.programEnrollment.program.name} details ...
                     </button>
                     <button className="square" onClick={this.enterDaySession}>
                         Day's session
