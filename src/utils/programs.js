@@ -100,7 +100,7 @@ const build_program = (programDescription) => {
         var numberSeries = currentExerciseSeries.getNumberSeriesForExercise(currentExercise)
         // console.log('numberSeries in build_program is: ',numberSeries)
         if (!numberSeries) {
-            currentExerciseSeries.addExercice(currentExercise,new Interval(element.exercicenumberrepetitionsmin,element.exercicenumberrepetitionsmax),element.exerciseorder)
+            currentExerciseSeries.addExercice(currentExercise,new Interval(element.exercicenumberseriesmin,element.exercicenumberseriesmax),element.exerciseorder)
         } 
     });
 

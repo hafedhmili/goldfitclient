@@ -25,16 +25,18 @@ class ExerciseComponent extends React.Component {
         this.newNumberSeries = this.newNumberSeries.bind(this)
     }
 
-    newNumberRepetitions() {
+    newNumberRepetitions(event) {
+        console.log('Changing number of repetitions to: ',event.target.value)
         this.setState((state)=> {
-            state.exerciseRecord.numberRepetitions = this.value
+            state.exerciseRecord.numberRepetitions = event.target.value
             return state
         })
     }
 
-    newNumberSeries() {
+    newNumberSeries(event) {
+        console.log('Changing number of series to: ',event.target.value)
         this.setState((state)=> {
-            state.exerciseRecord.numberSeries = this.value
+            state.exerciseRecord.numberSeries = event.target.value
             return state
         })
     }
@@ -64,10 +66,11 @@ class DayRecord extends React.Component {
         constructor(props) {
             super(props);
             const progEnrollment = props.programEnrollment
-            const today=new Date()
+            const today = new Date()
             // get day record for date. If not found, create one
             var day_record = progEnrollment.getDayRecordForDay(today)
             if (!day_record) {
+                console.log('[DEBUG]: did not find day record for day: ',today, ' thus creating a new one.')
                 progEnrollment.initializeDayRecordForDay(today)
                 day_record = progEnrollment.getDayRecordForDay(today)
             }
@@ -96,6 +99,7 @@ class DayRecord extends React.Component {
                 // value is the exercise record
                 var eventKeyString = key.name  
                 const series_range = exerciseSeries.getNumberSeriesForExercise(key)
+                console.log('[DayRecord.getAccordionItems()] Series range for exercise ', key.name, ' in exercice series ', exerciseSeries.name, ' is: ', series_range)
                 accordionBody.push(
                     <Accordion.Item eventKey={eventKeyString}>
                         <Accordion.Header>{key.name}</Accordion.Header>
