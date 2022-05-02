@@ -1,7 +1,7 @@
-//"use strict";
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//exports.ProgramEnrollment = exports.ProgramDayRecord = exports.SatisfactionLevel = exports.PainLevel = exports.SelfEfficacy = exports.DifficultyLevel = exports.ExerciseRecord = exports.Patient = exports.Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
-exports.SatisfactionLevel = exports.PainLevel = exports.SelfEfficacy = exports.DifficultyLevel = void 0;
+exports.ProgramEnrollment = exports.ProgramDayRecord = exports.SatisfactionLevel = exports.PainLevel = exports.SelfEfficacy = exports.DifficultyLevel = exports.ExerciseRecord = exports.Patient = exports.Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
+//exports.SatisfactionLevel = exports.PainLevel = exports.SelfEfficacy = exports.DifficultyLevel = void 0;
 class Exercise {
     constructor(n, d, nR, ur) {
         this.name = n;

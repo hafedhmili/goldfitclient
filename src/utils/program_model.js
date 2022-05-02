@@ -88,7 +88,9 @@ class Program {
         //        stringProgSequences = stringProgSequences+ element.key + '->' + element.value +','
         //    })
         //    stringProgSequences = stringProgSequences.replace(/.$/,'}')
-        var globalString = '{"name" : "' + this.name + '"; "description" : "' + this.description + '"; "duration" : "' + this.duration + '"; "mapExerciseSeries" : "' + stringProgSequences + '}';
+        var globalString = '{ "name" : "' + this.name + '";"description" : "' +
+            this.description + '"; "duration" : "' + this.duration +
+            '"; "mapExerciseSeries" : "' + stringProgSequences + '}';
         return globalString;
     }
 }
@@ -191,14 +193,28 @@ class ProgramEnrollment {
         return days2 - days1;
     }
     /**
+     * Given a date as an argument, figures out which day (ordinal number) of the program
+     * this is. For example, a program stars April 25th. May 2 is Day 8th of the program
+     * @param day
+     * @returns
+     */
+    getDayOfTheProgramCorrespondingToDate(day) {
+        return this.getNumberOfDaysBetween(this.startDate, day) + 1;
+    }
+    /**
      * returns the exercice series that corresponds to a particular date. This
      * depends on: 1) the (structure of the) program, and 2) the start date of
-     * the program.
+     * the program. If we are out of range, it displays a message to that
+     * effect and returns null
      * @param day
      * @returns
      */
     getExerciseSeriesForDay(day) {
-        const dayOfTheProgram = this.getNumberOfDaysBetween(this.startDate, day) + 1;
+        const dayOfTheProgram = this.getDayOfTheProgramCorrespondingToDate(day);
+        if (dayOfTheProgram > this.program.duration) {
+            console.log('Date ', day, ' is beyond end of the program (', this.program.name, ')');
+            return null;
+        }
         return this.program.getExerciseSeriesForDay(dayOfTheProgram);
     }
     /**

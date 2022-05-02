@@ -32,7 +32,7 @@ class Authenticate extends React.Component {
               const enrollment_record = result
               const patient = new Patient(enrollment_record.patientfirstname, enrollment_record.patientlastname,enrollment_record.idpatient)
               const program = new Program(enrollment_record.programname,enrollment_record.programdescription,enrollment_record.programduration)
-              const program_enrollment = new ProgramEnrollment(patient,program,enrollmentCode,enrollment_record.programenrollmentdate,enrollment_record.programstartdate)
+              const program_enrollment = new ProgramEnrollment(patient,program,enrollmentCode,new Date(enrollment_record.programenrollmentdate),new Date(enrollment_record.programstartdate))
 //              const enrollment_record = result
               console.log('Here is the enrollment record: ' + enrollment_record)
               ReactDOM.render(

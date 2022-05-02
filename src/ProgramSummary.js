@@ -3,6 +3,7 @@ import logo from './criugm-logo.png'
 import Utils from './utils/programs'
 import ReactDOM from 'react-dom'
 import ProgramDetails from './ProgramDetails'
+import DayRecord from './day_record'
 // import TestDataFunctions from './utils/data'
 
 class ProgramSummary extends React.Component {
@@ -43,9 +44,13 @@ class ProgramSummary extends React.Component {
         }
 
         enterDaySession() {
-            const today = Date.now()
             if (this.state.programEnrollment.program){
-                console.log('the program is defined. It is: ',this.programEnrollment.program)
+                console.log('the program is defined. It is: ',this.state.programEnrollment.program)
+                ReactDOM.render(
+                    <React.StrictMode>
+                        <DayRecord programEnrollment={this.state.programEnrollment} />
+                    </React.StrictMode>, document.getElementById('root')
+                );
             }
 
         }
