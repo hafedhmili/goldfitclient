@@ -71,10 +71,11 @@ class ProgramDetails extends React.Component {
             let accordionBody = [] 
             const numberOfSeries = programSegment.getNumberOfExercices()
             for (let index = 1; index <=numberOfSeries; index++) {
+                let accordionItemKey = programSegment.getExerciseAtPosition(index).name
                 var eventKeyString = ""+index
                 accordionBody.push(
-                <Accordion.Item eventKey={eventKeyString}>
-                    <Accordion.Header>{programSegment.getExerciseAtPosition(index).name} [Series: {programSegment.getNumberSeriesForExercise(programSegment.getExerciseAtPosition(index)).min} - {programSegment.getNumberSeriesForExercise(programSegment.getExerciseAtPosition(index)).max}]</Accordion.Header>
+                <Accordion.Item eventKey={eventKeyString} key={accordionItemKey}>
+                    <Accordion.Header>{accordionItemKey} [Series: {programSegment.getNumberSeriesForExercise(programSegment.getExerciseAtPosition(index)).min} - {programSegment.getNumberSeriesForExercise(programSegment.getExerciseAtPosition(index)).max}]</Accordion.Header>
                     <Accordion.Body>
                         <ExerciseComponent exercise={programSegment.getExerciseAtPosition(index)} />
                     </Accordion.Body>

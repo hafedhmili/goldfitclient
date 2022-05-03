@@ -45,10 +45,11 @@ class ProgramSummary extends React.Component {
 
         enterDaySession() {
             if (this.state.programEnrollment.program){
-                console.log('the program is defined. It is: ',this.state.programEnrollment.program)
+                console.log('[DEBUG]. Inside ProgramSummary.enterDaySession(). the program is defined. It is: ',this.state.programEnrollment.program)
+                const today = new Date()
                 ReactDOM.render(
                     <React.StrictMode>
-                        <DayRecord programEnrollment={this.state.programEnrollment} />
+                        <DayRecord programEnrollment={this.state.programEnrollment} date={today}/>
                     </React.StrictMode>, document.getElementById('root')
                 );
             }
