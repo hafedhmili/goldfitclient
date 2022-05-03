@@ -11,7 +11,7 @@ import Accordion from 'react-bootstrap/Accordion';
 // import Button from 'react-bootstrap/Button';
 // import AccordionItem from 'react-bootstrap/esm/AccordionItem';
 import ReactPlayer from 'react-player';  
-import { Button } from 'react-bootstrap';
+//import { Button } from 'react-bootstrap';
 
 
 function ExerciseComponent(props) {
