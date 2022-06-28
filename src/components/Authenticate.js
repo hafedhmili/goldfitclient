@@ -1,12 +1,12 @@
 import React from 'react'
 
 import ReactDOM from 'react-dom';
-import logo from './criugm-logo.png'
-import ProgramSummary from './ProgramSummary';
-import Utils from './utils/programs';
-import {Patient} from './utils/program_model';
-import {Program} from './utils/program_model';
-import {ProgramEnrollment} from './utils/program_model';
+import logo from '../criugm-logo.png'
+import ProgramSummary from '../ProgramSummary';
+import Utils from '../utils/programs';
+import {Patient} from '../utils/program_model';
+import {Program} from '../utils/program_model';
+import {ProgramEnrollment} from '../utils/program_model';
 
 class Authenticate extends React.Component {
     

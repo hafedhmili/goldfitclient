@@ -1,6 +1,6 @@
 import './GoldFit.css';
 import React from 'react'
-import Authenticate from './Authenticate';
+import Authenticate from './components/Authenticate';
 
 class GoldFit extends React.Component {
   render() {
