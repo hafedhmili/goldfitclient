@@ -37,7 +37,7 @@ class ProgramSummary extends React.Component {
                 console.log('Retrieved program is: ', prog)
                 ReactDOM.render(
                     <React.StrictMode>
-                        <ProgramDetails programEnrollment={pgmEnr} />
+                        <ProgramDetails program_enrollment={pgmEnr} />
                     </React.StrictMode>, document.getElementById('root')
                 );
           });
@@ -49,7 +49,7 @@ class ProgramSummary extends React.Component {
                 const today = new Date()
                 ReactDOM.render(
                     <React.StrictMode>
-                        <DayRecord programEnrollment={this.state.programEnrollment} date={today}/>
+                        <DayRecord program_enrollment={this.state.programEnrollment} date={today}/>
                     </React.StrictMode>, document.getElementById('root')
                 );
             }

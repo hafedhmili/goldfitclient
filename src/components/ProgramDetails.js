@@ -34,7 +34,7 @@ class ProgramDetails extends React.Component {
         constructor(props) {
             super(props);
 //            console.log('Inside constructor of ProgramDetails. Props are:' + props)
-            const progEnr = props.programEnrollment
+            const progEnr = props.program_enrollment
 
             this.state = {
                 programEnrollment: progEnr,

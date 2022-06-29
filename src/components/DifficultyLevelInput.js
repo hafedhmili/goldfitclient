@@ -22,19 +22,15 @@ export default class DifficultyLevelInput extends React.Component {
 
     console.log('[DEBUG] inside constructor of DifficultyLevelInput')
     this.handleRadioChange = this.handleRadioChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.setConfidenceLevel = this.setConfidenceLevel.bind(this)
+    this.backToDayRecord = this.backToDayRecord.bind(this)
+    this.backToMain = this.backToMain.bind(this)
   }
 
   handleRadioChange (event) {
     this.setState((state)=> {
       state.dayRecord.difficultyLevel = event.target.value
       return state});
-  };
-
-handleSubmit (event) {
-    // this should open the new component to select confidence level
-    console.log("[DEBUG] Inside submit difficulty level, which is supposed to move to the confidence level")
-
   };
 
 backToMain() {
@@ -64,28 +60,25 @@ setConfidenceLevel() {
 
 render() {
   return (
-    <form onSubmit="handleSubmit">
+    <div>
       <FormControl sx={{ m: 3 }} variant="standard">
-        <FormLabel id="demo-error-radios">Pop quiz: MUI is...</FormLabel>
+        <FormLabel id="demo-error-radios">Select difficulty level</FormLabel>
         <RadioGroup
           aria-labelledby="demo-error-radios"
-          name="quiz"
+          name="difficultyLevel"
           value={this.state.DifficultyLevel}
-          onChange="handleRadioChange"
+          onChange={this.handleRadioChange}
         >
           <FormControlLabel value="VeryEasy" control={<Radio />} label={DifficultyLevel["VeryEasy"]} />
           <FormControlLabel value="Easy" control={<Radio />} label={DifficultyLevel["Easy"]} />
           <FormControlLabel value="Difficult" control={<Radio />} label={DifficultyLevel["Difficult"]} />
           <FormControlLabel value="VeryDifficult" control={<Radio />} label={DifficultyLevel["VeryDifficult"]} />
         </RadioGroup>
-        <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
-          Select Confidence Level ...
-        </Button>
-        <button className="square" onClick={this.setConfidenceLevel}>Confidence level &gt;</button>
+        <button className="square" onClick={this.setConfidenceLevel}>Set confidence level &gt;</button>
         <button className="square" onClick={this.backToDayRecord}>&lt; Day record</button>
         <button className="square" onClick={this.backToMain}>&lt; Main</button>
       </FormControl>
-    </form>
+      </div>
   );
   }
 }
