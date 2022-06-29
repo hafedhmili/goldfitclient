@@ -114,16 +114,10 @@ class ExerciseRecord {
 exports.ExerciseRecord = ExerciseRecord;
 var DifficultyLevel;
 (function (DifficultyLevel) {
-    DifficultyLevel["VeryVeryEasy"] = "Very Very Easy";
-    DifficultyLevel["VeryEasy"] = "Very Easy";
+    DifficultyLevel["VeryVeryEasy"] = "Very  Easy";
     DifficultyLevel["Easy"] = "Easy";
-    DifficultyLevel["RelativelyEasy"] = "Relatively Easy";
-    DifficultyLevel["Average"] = "Average";
-    DifficultyLevel["RelativelyDifficult"] = "Relatively Difficult";
     DifficultyLevel["Difficult"] = "Difficult";
     DifficultyLevel["VeryDifficult"] = "Very Difficult";
-    DifficultyLevel["VeryVeryDifficult"] = "Very Very Difficult";
-    DifficultyLevel["IncrediblyDifficult"] = "Incredibly Difficult";
 })(DifficultyLevel = exports.DifficultyLevel || (exports.DifficultyLevel = {}));
 var SelfEfficacy;
 (function (SelfEfficacy) {
@@ -151,7 +145,7 @@ class ProgramDayRecord {
         this.day = d;
         this.exerciseSeries = exSeries;
         this.exerciceRecords = new Map();
-        this.difficultyLevel = DifficultyLevel.Average;
+        this.difficultyLevel = DifficultyLevel.Easy;
         this.selfEfficacy = SelfEfficacy.NotConfident;
         this.painLevel = PainLevel.NoPain;
         this.satisfactionLevel = SatisfactionLevel.Satisfied;
