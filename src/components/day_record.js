@@ -167,10 +167,10 @@ class DayRecord extends React.Component {
 
         render() {
             const dayRecord = this.state.dayRecord
-              console.log('[DEBUG] Inside render() of DayRecord, this.state.dayRecord is',dayRecord)
-              const exerciseSeriesName = this.state.dayRecord.exerciseSeries.name
-                return (
-                  <div style={{ display: 'block', width: 700, padding: 30 }} align="center">
+            console.log('[DEBUG] Inside render() of DayRecord, this.state.dayRecord is',dayRecord)
+            const exerciseSeriesName = this.state.dayRecord.exerciseSeries.name
+            return (
+                <div style={{ display: 'block', width: 700, padding: 30 }} align="center">
                     <div >
                         <img alt="CRIUGM" src={logo}/><br></br>                        
                     </div>
@@ -188,9 +188,9 @@ class DayRecord extends React.Component {
                     <button className="square" onClick={this.enterDifficultyLevel}>
                         Summary Difficulty Level &gt;
                     </button>
-                  </div>
-                );
-              }
+                </div>
+            );
+        }
     }
     
 export default DayRecord
