@@ -10,10 +10,10 @@ class ProgramSummary extends React.Component {
     
         constructor(props) {
             super(props);
-            console.log('Inside constructor of ProgramSummary. Props are:' + props)
+            console.log('[DEBUG] Inside constructor of ProgramSummary. Props are:' + props)
             const pgm_enrollment = this.props.program_enrollment
 //            const pgm_header = this.props.enrollment_record
-            console.log('Inside constructor of ProgramSummary. pgm_enrollment is:', pgm_enrollment)
+            console.log('[DEBUG] Inside constructor of ProgramSummary. pgm_enrollment is:', pgm_enrollment)
             this.state = {
                 programEnrollment : pgm_enrollment
             }
@@ -34,7 +34,7 @@ class ProgramSummary extends React.Component {
                 //const pg2 = TestDataFunctions.createSomeData()[1]
                 // now, update the state
                 this.setState({programEnrollment: pgmEnr})
-                console.log('Retrieved program is: ', prog)
+                console.log('[DEBUG] Retrieved program is: ', prog)
                 ReactDOM.render(
                     <React.StrictMode>
                         <ProgramDetails program_enrollment={pgmEnr} />

@@ -10,19 +10,19 @@ import Button from '@mui/material/Button';
 import { DifficultyLevel } from '../utils/program_model';
 import DayRecord from './day_record';
 import ProgramSummary from './ProgramSummary';
+import SelfEfficacyInput from './SelfEfficacyInput';
 
 export default class DifficultyLevelInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       programEnrollment : props.program_enrollment,
-      // this is enough since difficulty level is an attribute of DayRecord
-      dayRecord : props.day_record                               
+      dayRecord : props.day_record  // difficulty level is an attribute of DayRecord                           
     }
 
-    console.log('[DEBUG] inside constructor of DifficultyLevelInput')
+    console.log('[DEBUG] inside constructor of',this.className)
     this.handleRadioChange = this.handleRadioChange.bind(this)
-    this.setConfidenceLevel = this.setConfidenceLevel.bind(this)
+    this.setSelfEfficacyLevel = this.setSelfEfficacyLevel.bind(this)
     this.backToDayRecord = this.backToDayRecord.bind(this)
     this.backToMain = this.backToMain.bind(this)
   }
@@ -45,15 +45,20 @@ backToMain() {
 backToDayRecord() {
   ReactDOM.render(
       <React.StrictMode>
-        <DayRecord program_enrollment={this.state.programEnrollment} />
+        <DayRecord program_enrollment={this.state.programEnrollment} date={this.state.dayRecord.date}/>
       </React.StrictMode>,
       document.getElementById('root')
     );
 
 }
 
-setConfidenceLevel() {
-  console.log("[DEBUG] Set confidence level")
+setSelfEfficacyLevel() {
+  ReactDOM.render(
+    <React.StrictMode>
+      <SelfEfficacyInput program_enrollment={this.state.programEnrollment} day_record={this.state.dayRecord}/>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
 }
 
 
@@ -62,11 +67,11 @@ render() {
   return (
     <div>
       <FormControl sx={{ m: 3 }} variant="standard">
-        <FormLabel id="demo-error-radios">Select difficulty level</FormLabel>
+        <FormLabel id="difficulty-level-input">Select difficulty level</FormLabel>
         <RadioGroup
-          aria-labelledby="demo-error-radios"
+          aria-labelledby="difficulty-level-input"
           name="difficultyLevel"
-          value={this.state.DifficultyLevel}
+          value={this.state.dayRecord.difficultyLevel}
           onChange={this.handleRadioChange}
         >
           <FormControlLabel value="VeryEasy" control={<Radio />} label={DifficultyLevel["VeryEasy"]} />
@@ -74,7 +79,7 @@ render() {
           <FormControlLabel value="Difficult" control={<Radio />} label={DifficultyLevel["Difficult"]} />
           <FormControlLabel value="VeryDifficult" control={<Radio />} label={DifficultyLevel["VeryDifficult"]} />
         </RadioGroup>
-        <button className="square" onClick={this.setConfidenceLevel}>Set confidence level &gt;</button>
+        <button className="square" onClick={this.setSelfEfficacyLevel}>Set efficacy level &gt;</button>
         <button className="square" onClick={this.backToDayRecord}>&lt; Day record</button>
         <button className="square" onClick={this.backToMain}>&lt; Main</button>
       </FormControl>
