@@ -69,6 +69,7 @@ class DayRecord extends React.Component {
             super(props);
             const progEnrollment = props.program_enrollment
             const recordDate = props.date
+            console.log("[DEBUG] inside constructor of DayRecord. props.date is: ", recordDate)
             // get day record for date. If not found, create one
             var day_record = progEnrollment.getDayRecordForDay(recordDate)
             if (!day_record) {

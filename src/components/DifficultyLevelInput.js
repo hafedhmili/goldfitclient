@@ -5,7 +5,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import Button from '@mui/material/Button';
 
 import { DifficultyLevel } from '../utils/program_model';
 import DayRecord from './day_record';
@@ -20,7 +19,7 @@ export default class DifficultyLevelInput extends React.Component {
       dayRecord : props.day_record  // difficulty level is an attribute of DayRecord                           
     }
 
-    console.log('[DEBUG] inside constructor of',this.className)
+    console.log('[DEBUG] inside constructor of DifficultyLevelInput')
     this.handleRadioChange = this.handleRadioChange.bind(this)
     this.setSelfEfficacyLevel = this.setSelfEfficacyLevel.bind(this)
     this.backToDayRecord = this.backToDayRecord.bind(this)
@@ -43,9 +42,12 @@ backToMain() {
 }
 
 backToDayRecord() {
+//  console.log("[DEBUG] Inside backToDFayRecord: day_record")
+  const record_date = this.state.dayRecord.day
+//  console.log("[DEBUG] Inside backToDFayRecord: record_date is", record_date)
   ReactDOM.render(
       <React.StrictMode>
-        <DayRecord program_enrollment={this.state.programEnrollment} date={this.state.dayRecord.date}/>
+        <DayRecord program_enrollment={this.state.programEnrollment} date={record_date}/>
       </React.StrictMode>,
       document.getElementById('root')
     );

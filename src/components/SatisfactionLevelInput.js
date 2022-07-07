@@ -5,7 +5,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import Button from '@mui/material/Button';
 
 import { SatisfactionLevel } from '../utils/program_model';
 import PainLevelInput from './PainLevelInput';
@@ -21,7 +20,7 @@ export default class SatisfactionLevelInput extends React.Component {
       dayRecord : props.day_record                               
     }
 
-    console.log('[DEBUG] inside constructor', this.className)
+    console.log('[DEBUG] inside constructor of SatisfactionLevelInput')
     this.handleRadioChange = this.handleRadioChange.bind(this)
     this.setMotivationLevel = this.setMotivationLevel.bind(this)
     this.backToPainLevel = this.backToPainLevel.bind(this)

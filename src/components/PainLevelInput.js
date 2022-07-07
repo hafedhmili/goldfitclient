@@ -5,7 +5,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import Button from '@mui/material/Button';
 
 import { PainLevel } from '../utils/program_model';
 import SelfEfficacyInput from './SelfEfficacyInput';
@@ -21,7 +20,7 @@ export default class PainLevelInput extends React.Component {
       dayRecord : props.day_record                               
     }
 
-    console.log('[DEBUG] inside constructor of DifficultyLevelInput')
+    console.log('[DEBUG] inside constructor of PainLevelInput')
     this.handleRadioChange = this.handleRadioChange.bind(this)
     this.setSatisfactionLevel = this.setSatisfactionLevel.bind(this)
     this.backToSelfEfficacyInput = this.backToSelfEfficacyInput.bind(this)

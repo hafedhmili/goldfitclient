@@ -9,6 +9,10 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
+This will copy the js file containing the data model from the build directory of
+goldfit server, which is the transpilation from typesecrit into the utils directory under the name
+program_model.js, then it runs the usual commands
+
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
@@ -22,6 +26,8 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
+
+As part of the build, this script will concatenate: 1) the js file containing the data model from the build directory of goldfit server (original file called program.js), which is the transpilation from typesecrit, and 2) the file config/
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
