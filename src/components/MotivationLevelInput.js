@@ -55,7 +55,12 @@ backToSatisfactionLevel() {
  * main
  */
  saveDayRecord() {
-  console.log('[DEBUG] save to local storage')
+  const prog_enr_key = this.state.programEnrollment.enrollmentCode
+  const prog_enr_string = JSON.stringify(this.state.programEnrollment)
+  localStorage.setItem(prog_enr_key,prog_enr_string)
+  console.log('[DEBUG] saving to local storage ...')
+  console.log('[DEBUG] The key is: ' + prog_enr_key)
+  console.log('[DEBUG] The value is: ',prog_enr_string)
   this.backToMain();
 }
 

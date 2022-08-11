@@ -27,7 +27,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 Builds the app for production to the `build` folder.\
 
-As part of the build, this script will concatenate: 1) the js file containing the data model from the build directory of goldfit server (original file called program.js), which is the transpilation from typesecrit, and 2) the file config/
+As part of the build, this script will concatenate: 1) the js file containing the data model from the build directory of goldfit server (original file called program.js), which is the transpilation from typesecrit, and 2) the file config/ts-to-js.patch
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
