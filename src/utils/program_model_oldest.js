@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProgramEnrollment = exports.ProgramDayRecord = exports.SatisfactionLevel = exports.PainLevel = exports.SelfEfficacy = exports.DifficultyLevel = exports.ExerciseRecord = exports.Patient = exports.Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
+exports.ProgramEnrollment = exports.ProgramDayRecord = exports.MotivationLevel = exports.SatisfactionLevel = exports.PainLevel = exports.SelfEfficacy = exports.DifficultyLevel = exports.ExerciseRecord = exports.Patient = exports.Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
 class Exercise {
     constructor(n, d, nR, ur) {
         this.name = n;
@@ -140,6 +140,11 @@ var SatisfactionLevel;
     SatisfactionLevel["Insatisfied"] = "Insatisfied";
     SatisfactionLevel["VeryInsatisfied"] = "Very Insatisfied";
 })(SatisfactionLevel = exports.SatisfactionLevel || (exports.SatisfactionLevel = {}));
+var MotivationLevel;
+(function (MotivationLevel) {
+    MotivationLevel["Motivated"] = "Motivated";
+    MotivationLevel["NotMotivated"] = "NotMotivated";
+})(MotivationLevel = exports.MotivationLevel || (exports.MotivationLevel = {}));
 class ProgramDayRecord {
     constructor(d, exSeries) {
         this.day = d;
@@ -149,6 +154,7 @@ class ProgramDayRecord {
         this.selfEfficacy = SelfEfficacy.NotConfident;
         this.painLevel = PainLevel.NoPain;
         this.satisfactionLevel = SatisfactionLevel.Satisfied;
+        this.motivationLevel = MotivationLevel.Motivated;
         if (!exSeries) {
             console.log('Exercise series is undefined. Cannot define program day record. The list of exercise records is empty');
             return;

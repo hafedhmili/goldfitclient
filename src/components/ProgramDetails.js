@@ -50,22 +50,10 @@ class ProgramDetails extends React.Component {
         
           showProgramDetails() {
               Utils.program_details(this.state.programEnrollment.program.name,(res) => {
-                  console.log('Here are the details of the returned program: '+res)
+                  console.log('[DEBUG] Here are the details of the returned program: '+res)
               })
 
           }
-
-          enterDaySession() {
-
-          }
-
-          showMyProgression() {
-
-          }
-
-          changeConfiguration() {
-
-        }
 
         getAccordionItems(programSegment) {
             let accordionBody = [] 
