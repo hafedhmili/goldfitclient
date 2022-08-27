@@ -12,7 +12,6 @@ class ProgramSummary extends React.Component {
             super(props);
             console.log('[DEBUG] Inside constructor of ProgramSummary. Props are:' + props)
             const pgm_enrollment = this.props.program_enrollment
-//            const pgm_header = this.props.enrollment_record
             console.log('[DEBUG] Inside constructor of ProgramSummary. pgm_enrollment is:', pgm_enrollment)
             this.state = {
                 programEnrollment : pgm_enrollment
@@ -44,16 +43,84 @@ class ProgramSummary extends React.Component {
         }
 
         enterDaySession() {
-            if (this.state.programEnrollment.program){
-                console.log('[DEBUG]. Inside ProgramSummary.enterDaySession(). the program is defined. It is: ',this.state.programEnrollment.program)
-                const today = new Date()
-                ReactDOM.render(
-                    <React.StrictMode>
-                        <DayRecord program_enrollment={this.state.programEnrollment} date={today}/>
-                    </React.StrictMode>, document.getElementById('root')
-                );
+            var progEnrollment = this.state.programEnrollment
+            // A. check if program has been initialized
+            if (progEnrollment.program.getNumberOfSegments()===0){
+                var fullProgram = null
+                // it hasn't. Thus:
+                // 1. check if program stored in localStorage
+                var programDescriptionString = localStorage.getItem(progEnrollment.program)
+                if (programDescriptionString) {
+                    // 1.a: program was stored in local storage. Thus recreate it from there
+                    // remember that array representing the join of program related tables
+                    // was stored as a string using JSON.stringify(), thus we need to
+                    // JSON.parse() the string retrieved from local storage
+                    fullProgram = Utils.build_program(JSON.parse(programDescriptionString))
+                } else {
+                    // detailed program was not stored in local storage. Thus retrieve it from
+                    // server
+                    console.log('[DEBUG]. Inside ProgramSummary.enterDaySession(). the program is neither defined, nor stored in local storage. Go and fetch it from server')
+                    Utils.program_details(progEnrollment.program.name,(res) => {
+                        fullProgram = Utils.build_program(res)
+                        // update the program component of the programEnrollment state variable with
+                        // the newly retrieved/completed program
+                        
+                    });
+                }
+                progEnrollment.program = fullProgram
+        
+                // now, update the state
+                this.setState({programEnrollment: progEnrollment})
+    
+            }
+            console.log('[DEBUG] Inside ProgramDetails.showDaySession(): I am supposed to have a full program here:', progEnrollment.program)
+            // now, figure out what day session to display.
+            const today = new Date()
+            const programStartDate = progEnrollment.startDate
+
+            // if program hasn't started, display a message and don't do anything
+            if (today < programStartDate) {
+                console.log('[DEBUG] should display a prompt to say program has not started')
+                return
             }
 
+            // if we are still here, it means the program started. Thus, we go and retrieve the 
+            // the program enrollment data
+            // first check that it hasn't been initialized
+            if (!progEnrollment.hasDayRecords()) {
+                // it hasn't. Thus check it is stored in local storage
+                var programEnrollmentDescriptionString = localStorage.getItem(progEnrollment.enrollmentCode)
+                if (programEnrollmentDescriptionString) {
+                    // 1.a: program enrollment was stored in local storage. Thus recreate it from there
+                    // remember that array representing the join of program related tables
+                    // was stored as a string using JSON.stringify(), thus we need to
+                    // JSON.parse() the string retrieved from local storage
+                    progEnrollment.buildEnrollmentFromEnrollmentDetailsQueryResults(JSON.parse(programEnrollmentDescriptionString),progEnrollment.patient,progEnrollment.program)
+                } else {
+                    // this means that it is not stored locally. Thus go look for it on server
+                    Utils.program_enrollment_details(progEnrollment.enrollmentCode,(res) => {
+                        progEnrollment.buildEnrollmentFromEnrollmentDetailsQueryResults(res,progEnrollment.patient,progEnrollment.program)
+                    });
+                }
+                // now, update the state
+                this.setState({programEnrollment: progEnrollment})
+            }
+            // assume program still active today
+            var sessionDate = today
+                        
+            // check if it is indeed, because if it isn't, show first day of 
+            // the program, and let the user navigate to the desired date
+            if (progEnrollment.getNumberOfDaysBetween(programStartDate,today) >= progEnrollment.program.duration) {
+                // show first date of the program
+                sessionDate = programStartDate
+            }
+            
+
+            ReactDOM.render(
+                <React.StrictMode>
+                    <DayRecord program_enrollment={this.state.programEnrollment} date={sessionDate}/>
+                    </React.StrictMode>, document.getElementById('root')
+                );
         }
 
         showMyProgression() {

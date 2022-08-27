@@ -258,5 +258,110 @@ class ProgramEnrollment {
         const day = this.stripDateToYearMonthDate(fullDateObject);
         return this.dayRecords.get(day.getTime());
     }
+    /**
+     * this function checks whether this instance has some day records, i.e.
+     * if we started filling out or not. This is useful by the client side,
+     * among others, to figure out whether we should query the server
+     * to retrieve the days already recorded
+     * @returns
+     */
+    hasDayRecords() {
+        return (this.dayRecords.size > 0);
+    }
+    /**
+     * This function initializes the receiver from the results of the following query:
+     * SELECT idProgramEnrollment, PatientId, ProgramId, ProgramEnrollmentDate, ProgramStartDate, ProgramEnrollmentCode,
+          idProgramDayRecord, date, satisfactionLevel, difficultyLevel, selfEfficacy, painLevel, motivationLevel, exerciseseriesid,
+          idExerciceRecord, ExerciceId, numberSeries, numberRepetitions
+     * The first time we encounter any ID, we check if we have an object with that ID. If we find in a Map of such objects,
+          we use it, else, we construct it. That way we built a graph of objects.
+     *
+     * @param enrollment_results : consists of a bunch of rows, each one is the result of joining a bunch of tables.
+     * @param patient
+     * @param program
+     * @returns
+     */
+    buildEnrollmentFromEnrollmentDetailsQueryResults(enrollment_results, patient, program) {
+        var tableDayRecords = new Map();
+        var tableExerciseSeries = new Map(); // exercise series are in program. This is simply for efficiency
+        var tableExercises = new Map(); // exercises are in program. This one is just for efficiency
+        var currentDayRecord = null;
+        var currentExerciseRecord = null;
+        enrollment_results.forEach(element => {
+            // A. see if the query concerns this enrollment object
+            if (element.enrollmentcode !== this.enrollmentCode) {
+                console.log('[ERROR] Exiting. Query results concern enrollment code: ', element.enrollmentcode, ' which is different from receiver ProgramEnrollment.this.enrollmentCode: ', this.enrollmentCode);
+                // just exit
+                return;
+            }
+            // check patient
+            // if patient passed as argument is not null, assign it
+            if (patient) {
+                this.patient = patient;
+            }
+            else {
+                // if it is null. check if it was initialized. If not, initialized from element
+                if (!this.patient) {
+                    this.patient = new Patient('', '', element.patientid);
+                }
+            }
+            // check program
+            // if program passed as argument is not null, assign it
+            if (program) {
+                this.program = program;
+            }
+            else {
+                // if it is null, check if it was initialized. If not initialize it with info
+                // from element
+                if (!this.program) {
+                    this.program = new Program('', '', element.programid);
+                }
+            }
+            // now, set other attributes, just im case (they weren't aleady initialized)
+            this.enrollmentCode = element.programenrollmentcode;
+            this.enrollmentDate = element.programenrollmentdate;
+            this.startDate = element.programstartdate;
+            // B. see if ProgramDayRecord was already created, if not create it
+            currentDayRecord = tableDayRecords.get(element.idprogramdayrecord);
+            // if first time encountered, create it
+            if (!currentDayRecord) {
+                // 1. first get the date of the day record, by converting the string 'date' to a 
+                // date object
+                const currentDayRecordDate = new Date(element.date);
+                // 2. get the exercice series applicable on that date. 
+                // a. First, search by id in table
+                var exerciceSeries = tableExerciseSeries.get(element.exerciseseriesid);
+                // b. If not found, look for it the hard way
+                if (!exerciceSeries) {
+                    exerciceSeries = this.getExerciseSeriesForDay(currentDayRecordDate);
+                    tableExerciseSeries.set(element.exerciseseriesid, exerciceSeries);
+                }
+                // 3. Now, create DayRecord, 
+                currentDayRecord = new ProgramDayRecord(currentDayRecordDate, exerciceSeries);
+                currentDayRecord.difficultyLevel = element.difficultylevel;
+                currentDayRecord.motivationLevel = element.motivationlevel;
+                currentDayRecord.painLevel = element.painlevel;
+                currentDayRecord.satisfactionLevel = element.satisfactionlevel;
+                currentDayRecord.selfEfficacy = element.selfefficacy;
+                // 4. Now, add it to program enrollment
+                this.dayRecords.set(currentDayRecordDate.getTime(), currentDayRecord);
+                // 5. Now add it to tableDayRecords
+                tableDayRecords.set(element.idprogramdayrecord, currentDayRecord);
+            }
+            // C. Now, create exercice record!
+            // 1. First, find exercise
+            var exercice = tableExercises.get(element.exercicename);
+            if (!exercice) {
+                // look for it in current exerciseSeries object
+                exercice = exerciceSeries.getExerciceWithName(element.exercicename);
+                tableExercises.set(element.exercicename, exercice);
+            }
+            // 2. Now create exercise record
+            currentExerciseRecord = new ExerciseRecord(exercice, JSON.parse(element.numSeries), JSON.parse(element.numRepetitions));
+            // 3. Now, add it to day record
+            currentDayRecord.addExerciceRecord(currentExerciseRecord);
+        });
+        return;
+    }
 }
 exports.ProgramEnrollment = ProgramEnrollment;

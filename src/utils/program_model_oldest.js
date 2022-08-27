@@ -114,7 +114,7 @@ class ExerciseRecord {
 exports.ExerciseRecord = ExerciseRecord;
 var DifficultyLevel;
 (function (DifficultyLevel) {
-    DifficultyLevel["VeryVeryEasy"] = "Very  Easy";
+    DifficultyLevel["VeryEasy"] = "Very  Easy";
     DifficultyLevel["Easy"] = "Easy";
     DifficultyLevel["Difficult"] = "Difficult";
     DifficultyLevel["VeryDifficult"] = "Very Difficult";
@@ -257,6 +257,16 @@ class ProgramEnrollment {
     getDayRecordForDay(fullDateObject) {
         const day = this.stripDateToYearMonthDate(fullDateObject);
         return this.dayRecords.get(day.getTime());
+    }
+    /**
+     * this function checks whether this instance has some day records, i.e.
+     * if we started filling out or not. This is useful by the client side,
+     * among others, to figure out whether we should query the server
+     * to retrieve the days already recorded
+     * @returns
+     */
+    hasDayRecords() {
+        return (this.dayRecords.size > 0);
     }
 }
 exports.ProgramEnrollment = ProgramEnrollment;

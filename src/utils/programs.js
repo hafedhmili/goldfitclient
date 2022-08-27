@@ -48,6 +48,29 @@ const program_details = (program_name,callback) => {
         })
 }
 
+const program_enrollment_details = (enrollment_code,callback) => {
+    // if enrollment code is empty, it is an error
+    if (!enrollment_code){
+        callback('No enrollment code to get full program enrollment',undefined)
+    }
+
+    // build the URL to invoke the service
+    const serverBaseUrl = process.env.REACT_APP_SERVER_BASE_URL? process.env.REACT_APP_SERVER_BASE_URL:'http://localhost:3000/' 
+    console.log('server base URL is: ', serverBaseUrl)
+    const URL = serverBaseUrl+'programs/enrollment_details?ec=' + enrollment_code
+
+    // make the call
+    axios.get(URL)
+        .then(res => {
+            console.log('The outcome of the call to enrollment details is: ',res.data)
+            callback(res.data)
+        })
+        .catch( error=>{
+                console.log('Error: '+error)    
+        })
+}
+
+
 const build_program = (programDescription) => {
     console.log('Program description inside build_program:', programDescription)
     // programDescription consists of a bunch of rows, each one is the result
@@ -107,5 +130,5 @@ const build_program = (programDescription) => {
     return currentProgram;
 }
 
-const Utils = {program_header: program_header, program_details:program_details, build_program:build_program}
+const Utils = {program_header: program_header, program_details:program_details, build_program:build_program, program_enrollment_details:program_enrollment_details}
 export default Utils
