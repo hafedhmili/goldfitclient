@@ -5,7 +5,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { MotivationLevel } from '../utils/program_model';
+import { MotivationLevel } from '../models/program';
 import SatisfactionLevelInput from './SatisfactionLevelInput';
 import ProgramSummary from './ProgramSummary';
 

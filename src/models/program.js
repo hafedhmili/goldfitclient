@@ -289,8 +289,8 @@ class ProgramEnrollment {
         var currentExerciseRecord = null;
         enrollment_results.forEach(element => {
             // A. see if the query concerns this enrollment object
-            if (element.enrollmentcode !== this.enrollmentCode) {
-                console.log('[ERROR] Exiting. Query results concern enrollment code: ', element.enrollmentcode, ' which is different from receiver ProgramEnrollment.this.enrollmentCode: ', this.enrollmentCode);
+            if (element.programenrollmentcode !== this.enrollmentCode) {
+                console.log('[ERROR] Exiting. Query results concern enrollment code: ', element.programenrollmentcode, ' which is different from receiver ProgramEnrollment.this.enrollmentCode: ', this.enrollmentCode);
                 // just exit
                 return;
             }
@@ -357,7 +357,7 @@ class ProgramEnrollment {
                 tableExercises.set(element.exercicename, exercice);
             }
             // 2. Now create exercise record
-            currentExerciseRecord = new ExerciseRecord(exercice, JSON.parse(element.numSeries), JSON.parse(element.numRepetitions));
+            currentExerciseRecord = new ExerciseRecord(exercice, JSON.parse(element.numberseries), JSON.parse(element.numberrepetitions));
             // 3. Now, add it to day record
             currentDayRecord.addExerciceRecord(currentExerciseRecord);
         });

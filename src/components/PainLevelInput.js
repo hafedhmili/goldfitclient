@@ -6,7 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-import { PainLevel } from '../utils/program_model';
+import { PainLevel } from '../models/program';
 import SelfEfficacyInput from './SelfEfficacyInput';
 import ProgramSummary from './ProgramSummary';
 import SatisfactionLevelInput from './SatisfactionLevelInput';

@@ -42,6 +42,22 @@ class ProgramSummary extends React.Component {
           });
         }
 
+        /**
+         * Function to enter day session. This requires that the program enrollment object has already been retrieved,
+         * which in turn assume that the program itself has already been retrieved.
+         * Thus, we start by checking whether the full program is 'live'. If not, get it from localStorage, if it
+         * was saved before, or go ahead and retrieve it from the server.
+         * 
+         * Next, check the enrollment object itself. Again, check if it has been initialized. If not, check if
+         * it has been saved in local storage. and if not, retrieve it.
+         * 
+         * Only then, do you start worrying about what day session to display. If program hasn't started, display a
+         * message to that effect. If program is completed, show it starting date. If program is ongoing, then
+         * display today's session.
+         * 
+         * The challenge is to do these things and keep the GUI synchronized.
+         * @returns 
+         */
         enterDaySession() {
             var progEnrollment = this.state.programEnrollment
             // A. check if program has been initialized
@@ -56,6 +72,11 @@ class ProgramSummary extends React.Component {
                     // was stored as a string using JSON.stringify(), thus we need to
                     // JSON.parse() the string retrieved from local storage
                     fullProgram = Utils.build_program(JSON.parse(programDescriptionString))
+        
+                    // now, update the state
+                    this.setState((state)=> {
+                        progEnrollment.program = fullProgram
+                        return {programEnrollment: progEnrollment}})
                 } else {
                     // detailed program was not stored in local storage. Thus retrieve it from
                     // server
@@ -64,13 +85,16 @@ class ProgramSummary extends React.Component {
                         fullProgram = Utils.build_program(res)
                         // update the program component of the programEnrollment state variable with
                         // the newly retrieved/completed program
-                        
+                        progEnrollment.program = fullProgram
+        
+                        // now, update the state
+                        this.setState((state) => {return {programEnrollment: progEnrollment}})
+
+                        // make a recursive call so that the next time it enters, it moves 
+                        // to the next stage
+                        return this.enterDaySession()
                     });
                 }
-                progEnrollment.program = fullProgram
-        
-                // now, update the state
-                this.setState({programEnrollment: progEnrollment})
     
             }
             console.log('[DEBUG] Inside ProgramDetails.showDaySession(): I am supposed to have a full program here:', progEnrollment.program)
@@ -96,14 +120,17 @@ class ProgramSummary extends React.Component {
                     // was stored as a string using JSON.stringify(), thus we need to
                     // JSON.parse() the string retrieved from local storage
                     progEnrollment.buildEnrollmentFromEnrollmentDetailsQueryResults(JSON.parse(programEnrollmentDescriptionString),progEnrollment.patient,progEnrollment.program)
+                    // now, update the state
+                    this.setState((state) => {return {programEnrollment: progEnrollment}})
                 } else {
                     // this means that it is not stored locally. Thus go look for it on server
                     Utils.program_enrollment_details(progEnrollment.enrollmentCode,(res) => {
                         progEnrollment.buildEnrollmentFromEnrollmentDetailsQueryResults(res,progEnrollment.patient,progEnrollment.program)
+                        // now, update the state
+                        this.setState((state) => {return {programEnrollment: progEnrollment}})
                     });
                 }
-                // now, update the state
-                this.setState({programEnrollment: progEnrollment})
+                
             }
             // assume program still active today
             var sessionDate = today
