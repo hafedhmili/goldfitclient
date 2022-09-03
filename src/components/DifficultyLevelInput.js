@@ -6,7 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-import { DifficultyLevel } from '../utils/program_model';
+import { DifficultyLevel } from '../models/program';
 import DayRecord from './day_record';
 import ProgramSummary from './ProgramSummary';
 import SelfEfficacyInput from './SelfEfficacyInput';

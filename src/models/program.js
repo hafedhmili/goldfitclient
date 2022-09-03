@@ -37,6 +37,13 @@ class ExerciseSeries {
     getNumberOfExercices() {
         return this.exercices.size;
     }
+    getExerciceWithName(name) {
+        for (const exercise of this.exercices.keys()) {
+            if (exercise.name === name)
+                return exercise;
+        }
+        return null;
+    }
 }
 exports.ExerciseSeries = ExerciseSeries;
 ;
@@ -168,6 +175,9 @@ class ProgramDayRecord {
                 this.exerciceRecords.set(exercise, exRecord);
             }
         }
+    }
+    setExerciseRecordForExercise(exRecord, exer) {
+        this.exerciceRecords.set(exer, exRecord);
     }
 }
 exports.ProgramDayRecord = ProgramDayRecord;
@@ -319,18 +329,19 @@ class ProgramEnrollment {
             }
             // now, set other attributes, just im case (they weren't aleady initialized)
             this.enrollmentCode = element.programenrollmentcode;
-            this.enrollmentDate = element.programenrollmentdate;
-            this.startDate = element.programstartdate;
+            this.enrollmentDate = new Date(element.programenrollmentdate);
+            this.startDate = new Date(element.programstartdate);
             // B. see if ProgramDayRecord was already created, if not create it
             currentDayRecord = tableDayRecords.get(element.idprogramdayrecord);
             // if first time encountered, create it
+            var exerciceSeries = null;
             if (!currentDayRecord) {
                 // 1. first get the date of the day record, by converting the string 'date' to a 
                 // date object
                 const currentDayRecordDate = new Date(element.date);
                 // 2. get the exercice series applicable on that date. 
                 // a. First, search by id in table
-                var exerciceSeries = tableExerciseSeries.get(element.exerciseseriesid);
+                exerciceSeries = tableExerciseSeries.get(element.exerciseseriesid);
                 // b. If not found, look for it the hard way
                 if (!exerciceSeries) {
                     exerciceSeries = this.getExerciseSeriesForDay(currentDayRecordDate);
@@ -348,6 +359,10 @@ class ProgramEnrollment {
                 // 5. Now add it to tableDayRecords
                 tableDayRecords.set(element.idprogramdayrecord, currentDayRecord);
             }
+            else { // this means that we have already created the currentDayRecord
+                // get the exercise series to use to create exercice records
+                exerciceSeries = currentDayRecord.exerciseSeries;
+            }
             // C. Now, create exercice record!
             // 1. First, find exercise
             var exercice = tableExercises.get(element.exercicename);
@@ -358,8 +373,9 @@ class ProgramEnrollment {
             }
             // 2. Now create exercise record
             currentExerciseRecord = new ExerciseRecord(exercice, JSON.parse(element.numberseries), JSON.parse(element.numberrepetitions));
+            //console.log('{DEBUG} Just created exercice record inside ProgramEnrollment.buildEnrollmentFromEnrollmentDetailsQueryResults: ', currentExerciseRecord)
             // 3. Now, add it to day record
-            currentDayRecord.addExerciceRecord(currentExerciseRecord);
+            currentDayRecord.setExerciseRecordForExercise(currentExerciseRecord, exercice);
         });
         return;
     }

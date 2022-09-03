@@ -92,8 +92,11 @@ class ProgramSummary extends React.Component {
 
                         // make a recursive call so that the next time it enters, it moves 
                         // to the next stage
-                        return this.enterDaySession()
+                        this.enterDaySession()
                     });
+                    // I am supposed to have made a recursive call in the call back. So I should exit
+                    // here
+                    return
                 }
     
             }
@@ -128,7 +131,12 @@ class ProgramSummary extends React.Component {
                         progEnrollment.buildEnrollmentFromEnrollmentDetailsQueryResults(res,progEnrollment.patient,progEnrollment.program)
                         // now, update the state
                         this.setState((state) => {return {programEnrollment: progEnrollment}})
+
+                        // make a recursive call so that the next time it enters, it moves 
+                        // to the next stage
+                        this.enterDaySession()
                     });
+                    return
                 }
                 
             }
@@ -137,6 +145,7 @@ class ProgramSummary extends React.Component {
                         
             // check if it is indeed, because if it isn't, show first day of 
             // the program, and let the user navigate to the desired date
+            console.log('[DEBUG] Inside showDaySession - programStartDate: ', programStartDate)
             if (progEnrollment.getNumberOfDaysBetween(programStartDate,today) >= progEnrollment.program.duration) {
                 // show first date of the program
                 sessionDate = programStartDate
