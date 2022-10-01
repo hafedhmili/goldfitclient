@@ -36,7 +36,7 @@ class ExerciseComponent extends React.Component {
     }
 
     newNumberSeries(event) {
-        console.log('Changing number of series to: ',event.target.value)
+        console.log('[DEBUG] Changing number of series to: ',event.target.value)
         this.setState((state)=> {
             state.exerciseRecord.numberSeries = event.target.value
             return state
@@ -107,7 +107,7 @@ class DayRecord extends React.Component {
                 var eventKeyString = key.name  
                 var accordionItemKey = key.name+day_record.day
                 const series_range = exerciseSeries.getNumberSeriesForExercise(key)
-                console.log('[DayRecord.getAccordionItems()] Series range for exercise ', key.name, ' in exercice series ', exerciseSeries.name, ' is: ', series_range)
+                console.log('[DEBUG] [DayRecord.getAccordionItems()] Series range for exercise ', key.name, ' in exercice series ', exerciseSeries.name, ' is: ', series_range)
                 accordionBody.push(
                     <Accordion.Item eventKey={eventKeyString} key={accordionItemKey}>
                         <Accordion.Header>{key.name}</Accordion.Header>

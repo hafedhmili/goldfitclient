@@ -328,9 +328,20 @@ class ProgramEnrollment {
                 }
             }
             // now, set other attributes, just im case (they weren't aleady initialized)
+            // WATCH out when you create dates from strings. If the string is yyyy-mm-dd, it
+            // will assume that the date is in GMT, and will create it in local time. So if
+            // it is late in the day when you run this function, the day will be off by
+            // 1 :-): new Date('2022-05-20'), run at 9:00 pm EDT will yield 2022-05-19T:20:00:00 ...
             this.enrollmentCode = element.programenrollmentcode;
-            this.enrollmentDate = new Date(element.programenrollmentdate);
-            this.startDate = new Date(element.programstartdate);
+            var enrollmentDataString = element.programenrollmentdate, startDateString = element.programstartdate;
+            if (enrollmentDataString.length < 11) {
+                enrollmentDataString = enrollmentDataString + 'T00:00:00';
+            }
+            if (startDateString.length < 11) {
+                startDateString = startDateString + 'T00:00:00';
+            }
+            this.enrollmentDate = new Date(enrollmentDataString);
+            this.startDate = new Date(startDateString);
             // B. see if ProgramDayRecord was already created, if not create it
             currentDayRecord = tableDayRecords.get(element.idprogramdayrecord);
             // if first time encountered, create it

@@ -56,13 +56,13 @@ const program_enrollment_details = (enrollment_code,callback) => {
 
     // build the URL to invoke the service
     const serverBaseUrl = process.env.REACT_APP_SERVER_BASE_URL? process.env.REACT_APP_SERVER_BASE_URL:'http://localhost:3000/' 
-    console.log('server base URL is: ', serverBaseUrl)
+    console.log('[DEBUG] server base URL is: ', serverBaseUrl)
     const URL = serverBaseUrl+'programs/enrollment_details?ec=' + enrollment_code
 
     // make the call
     axios.get(URL)
         .then(res => {
-            console.log('The outcome of the call to enrollment details is: ',res.data)
+            console.log('[DEBUG] The outcome of the call to enrollment details is: ',res.data)
             callback(res.data)
         })
         .catch( error=>{

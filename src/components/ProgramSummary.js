@@ -33,7 +33,7 @@ class ProgramSummary extends React.Component {
                 //const pg2 = TestDataFunctions.createSomeData()[1]
                 // now, update the state
                 this.setState({programEnrollment: pgmEnr})
-                console.log('[DEBUG] Retrieved program is: ', prog)
+                console.log('[DEBUG] Inside ProgramSummary.showProgramDetails(). Retrieved program is: ', prog)
                 ReactDOM.render(
                     <React.StrictMode>
                         <ProgramDetails program_enrollment={pgmEnr} />
@@ -65,7 +65,7 @@ class ProgramSummary extends React.Component {
                 var fullProgram = null
                 // it hasn't. Thus:
                 // 1. check if program stored in localStorage
-                var programDescriptionString = localStorage.getItem(progEnrollment.program)
+                var programDescriptionString = localStorage.getItem(progEnrollment.program.name)
                 if (programDescriptionString) {
                     // 1.a: program was stored in local storage. Thus recreate it from there
                     // remember that array representing the join of program related tables
@@ -100,14 +100,14 @@ class ProgramSummary extends React.Component {
                 }
     
             }
-            console.log('[DEBUG] Inside ProgramDetails.showDaySession(): I am supposed to have a full program here:', progEnrollment.program)
+            console.log('[DEBUG] Inside ProgramSummary.showDaySession(): I am supposed to have a full program here:', progEnrollment.program)
             // now, figure out what day session to display.
             const today = new Date()
             const programStartDate = progEnrollment.startDate
 
             // if program hasn't started, display a message and don't do anything
             if (today < programStartDate) {
-                console.log('[DEBUG] should display a prompt to say program has not started')
+                console.log('[DEBUG] Inside ProgramSummary. should display a prompt to say program has not started')
                 return
             }
 
@@ -145,7 +145,7 @@ class ProgramSummary extends React.Component {
                         
             // check if it is indeed, because if it isn't, show first day of 
             // the program, and let the user navigate to the desired date
-            console.log('[DEBUG] Inside showDaySession - programStartDate: ', programStartDate)
+            console.log('[DEBUG] Inside ProgramSummary.showDaySession - programStartDate: ', programStartDate)
             if (progEnrollment.getNumberOfDaysBetween(programStartDate,today) >= progEnrollment.program.duration) {
                 // show first date of the program
                 sessionDate = programStartDate

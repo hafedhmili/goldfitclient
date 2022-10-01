@@ -10,8 +10,8 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 This will copy the js file containing the data model from the build directory of
-goldfit server, which is the transpilation from typesecrit into the utils directory under the name
-program_model.js, then it runs the usual commands
+goldfit server, which is the transpilation from typesecrit into the models directory under the name
+program.js, then it runs the usual commands
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
