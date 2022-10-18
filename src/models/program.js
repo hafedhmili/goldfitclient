@@ -121,7 +121,7 @@ class ExerciseRecord {
 exports.ExerciseRecord = ExerciseRecord;
 var DifficultyLevel;
 (function (DifficultyLevel) {
-    DifficultyLevel["VeryEasy"] = "Very  Easy";
+    DifficultyLevel["VeryEasy"] = "Very Easy";
     DifficultyLevel["Easy"] = "Easy";
     DifficultyLevel["Difficult"] = "Difficult";
     DifficultyLevel["VeryDifficult"] = "Very Difficult";
@@ -392,3 +392,7 @@ class ProgramEnrollment {
     }
 }
 exports.ProgramEnrollment = ProgramEnrollment;
+
+// patch to add this line to end of models/program.js to handle difference
+// between node.js version
+export {ProgramEnrollment,ProgramDayRecord,MotivationLevel,SatisfactionLevel,PainLevel,SelfEfficacy,DifficultyLevel,ExerciseRecord,Patient,Program,Interval,ExerciseSeries,Exercise};
