@@ -392,8 +392,4 @@ class ProgramEnrollment {
     }
 }
 exports.ProgramEnrollment = ProgramEnrollment;
-
-// patch to add this line to end of models/program.js to handle difference
-// between node.js version
-export default Patient;
-//export {ProgramEnrollment,ProgramDayRecord,MotivationLevel,SatisfactionLevel,PainLevel,SelfEfficacy,DifficultyLevel,ExerciseRecord,Patient,Program,Interval,ExerciseSeries,Exercise};
+export default exports
