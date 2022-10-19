@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+//Object.defineProperty(exports, "__esModule", { value: true });
+var exports
 exports.ProgramEnrollment = exports.ProgramDayRecord = exports.MotivationLevel = exports.SatisfactionLevel = exports.PainLevel = exports.SelfEfficacy = exports.DifficultyLevel = exports.ExerciseRecord = exports.Patient = exports.Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
 class Exercise {
     constructor(n, d, nR, ur) {
