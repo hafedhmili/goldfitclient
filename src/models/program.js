@@ -392,4 +392,4 @@ class ProgramEnrollment {
     }
 }
 exports.ProgramEnrollment = ProgramEnrollment;
-export default exports
+export {ProgramEnrollment,ProgramDayRecord,MotivationLevel,SatisfactionLevel,PainLevel,SelfEfficacy,DifficultyLevel,ExerciseRecord,Patient,Program,Interval,ExerciseSeries,Exercise};
