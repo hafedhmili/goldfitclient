@@ -1,6 +1,5 @@
 "use strict";
-//Object.defineProperty(exports, "__esModule", { value: true });
-var exports = {}
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProgramEnrollment = exports.ProgramDayRecord = exports.MotivationLevel = exports.SatisfactionLevel = exports.PainLevel = exports.SelfEfficacy = exports.DifficultyLevel = exports.ExerciseRecord = exports.Patient = exports.Program = exports.Interval = exports.ExerciseSeries = exports.Exercise = void 0;
 class Exercise {
     constructor(n, d, nR, ur) {
@@ -335,12 +334,6 @@ class ProgramEnrollment {
             // 1 :-): new Date('2022-05-20'), run at 9:00 pm EDT will yield 2022-05-19T:20:00:00 ...
             this.enrollmentCode = element.programenrollmentcode;
             var enrollmentDataString = element.programenrollmentdate, startDateString = element.programstartdate;
-            if (enrollmentDataString.length < 11) {
-                enrollmentDataString = enrollmentDataString + 'T00:00:00';
-            }
-            if (startDateString.length < 11) {
-                startDateString = startDateString + 'T00:00:00';
-            }
             this.enrollmentDate = new Date(enrollmentDataString);
             this.startDate = new Date(startDateString);
             // B. see if ProgramDayRecord was already created, if not create it
@@ -393,4 +386,3 @@ class ProgramEnrollment {
     }
 }
 exports.ProgramEnrollment = ProgramEnrollment;
-export {ProgramEnrollment,ProgramDayRecord,MotivationLevel,SatisfactionLevel,PainLevel,SelfEfficacy,DifficultyLevel,ExerciseRecord,Patient,Program,Interval,ExerciseSeries,Exercise};
